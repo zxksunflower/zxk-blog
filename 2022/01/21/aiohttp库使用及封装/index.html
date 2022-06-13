@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="张向恒">
+    
+    <title>
+        
+            aiohttp库使用及封装 |
+        
+        数据开发技术日志
+    </title>
+    
+<link rel="stylesheet" href="/zxk-blog.github.io/css/style.css">
+
+    <link rel="shortcut icon" href="/zxk-blog.github.io/images/logo.svg">
+    
+<link rel="stylesheet" href="/zxk-blog.github.io/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zxksunflower.github.io","root":"/zxk-blog.github.io/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"小舟从此去，江海寄余生"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                数据开发技术日志
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">aiohttp库使用及封装</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">张向恒</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-01-21 16:35:27</span>
+        <span class="mobile">2022-01-21 16:35</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zxk-blog.github.io/categories/Python%E7%88%AC%E8%99%AB/">Python爬虫</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zxk-blog.github.io/tags/Python%E5%BA%93%E4%BD%BF%E7%94%A8/">Python库使用</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="关于aiohttp"><a href="#关于aiohttp" class="headerlink" title="关于aiohttp"></a>关于aiohttp</h1><p>aiohttp 是一个基于asyncio的异步http网络模块，分为了客户端和服务端，同时支持websocket的使用。<br>在写爬虫的时候，同常用的 requests 库，它是同步库，会阻塞asyncio，所以不能在异步的环境中直接使用。而aiohttp是基于异步的、效率非常高的爬虫请求库，配合asyncio协程可以发挥非常高的效率。</p>
+<h2 id="requests-和-requests-线程-以及使用-aiohttp-对比"><a href="#requests-和-requests-线程-以及使用-aiohttp-对比" class="headerlink" title="requests 和 requests+线程 以及使用 aiohttp 对比"></a>requests 和 requests+线程 以及使用 aiohttp 对比</h2><p>这里测试一下requests进行循环访问、requests+线程池、以及使用aiohttp这三种方式访问网址2000次返回所用时间。 首先用aiohttp创建一个本地服务，地址为127.0.0.1:<br>5000。然后启动，作为被爬取的api接口，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> aiohttp <span class="keyword">import</span> web</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">home</span>(<span class="params">request: web.Request</span>) -&gt; web.Response:</span><br><span class="line">    <span class="keyword">return</span> web.Response(text=<span class="string">&quot;Hi&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">init_app</span>() -&gt; web.Application:</span><br><span class="line">    app = web.Application()</span><br><span class="line">    app.add_routes([web.get(<span class="string">&quot;/&quot;</span>, home)])</span><br><span class="line">    <span class="keyword">return</span> app</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">web.run_app(init_app(), port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+<p>编写爬虫脚本，分别使用三种方式访问接口，测试用时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> timeit</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line">session = requests.session()</span><br><span class="line">url = <span class="string">&quot;http://127.0.0.1:5000&quot;</span></span><br><span class="line"></span><br><span class="line">Count = <span class="number">2000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">req</span>(<span class="params">url: <span class="built_in">str</span></span>):</span><br><span class="line">    req = requests.get(url)</span><br><span class="line">    req.status_code</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">requests_test</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    第一组:循环的方式</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Count):</span><br><span class="line">        req(url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pool_requests_test</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    第二组:线程池的方式</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    url_list = [url <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(Count)]</span><br><span class="line">    <span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">20</span>) <span class="keyword">as</span> pool:</span><br><span class="line">        pool.<span class="built_in">map</span>(req, url_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">fetch</span>(<span class="params">url: <span class="built_in">str</span>, sem</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> sem:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">            <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> req:</span><br><span class="line">                req.status</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">start</span>():</span><br><span class="line">    sem = asyncio.Semaphore(<span class="number">20</span>)</span><br><span class="line">    tasks = [asyncio.create_task(fetch(url, sem)) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(Count)]</span><br><span class="line">    <span class="keyword">await</span> asyncio.wait(tasks)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">aiohttp_test</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    第三组:aiohttp 的方式</span></span><br><span class="line"><span class="string">    :param url:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    asyncio.run(start())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 循环的</span></span><br><span class="line">    <span class="built_in">print</span>(timeit.timeit(stmt=requests_test, number=<span class="number">1</span>))</span><br><span class="line">    <span class="comment"># # 使用线程池的</span></span><br><span class="line">    <span class="comment"># print(timeit.timeit(stmt=pool_requests_test, number=1))</span></span><br><span class="line">    <span class="comment"># # 使用 aiohttp 的</span></span><br><span class="line">    <span class="comment"># print(timeit.timeit(stmt=aiohttp_test, number=1))</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.0124467999999998</span></span><br><span class="line"><span class="number">2.2311221999999997</span></span><br><span class="line"><span class="number">1.1936984</span></span><br></pre></td></tr></table></figure>
+<p>使用aiohttp的用时是最短的。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：aiohttp库使用及封装</li>
+        <li>本文作者：张向恒</li>
+        <li>创建时间：2022-01-21 16:35:27</li>
+        <li>
+            本文链接：https://zxksunflower.github.io/zxk-blog.github.io/2022/01/21/aiohttp库使用及封装/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/zxk-blog.github.io/tags/Python%E5%BA%93%E4%BD%BF%E7%94%A8/">#Python库使用</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/zxk-blog.github.io/2022/05/05/Charles%E5%AE%89%E5%8D%937-0%E4%BB%A5%E4%B8%8A%E6%8A%93%E5%8C%85/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Charles安卓7.0以上抓包</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/zxk-blog.github.io/2022/01/10/CentOS7%E5%AE%89%E8%A3%85MySQL5-7/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">CentOS7安装MySQL5.7</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">张向恒</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eaiohttp"><span class="nav-number">1.</span> <span class="nav-text">关于aiohttp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#requests-%E5%92%8C-requests-%E7%BA%BF%E7%A8%8B-%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8-aiohttp-%E5%AF%B9%E6%AF%94"><span class="nav-number">1.1.</span> <span class="nav-text">requests 和 requests+线程 以及使用 aiohttp 对比</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/zxk-blog.github.io/js/utils.js"></script>
+
+<script src="/zxk-blog.github.io/js/main.js"></script>
+
+<script src="/zxk-blog.github.io/js/header-shrink.js"></script>
+
+<script src="/zxk-blog.github.io/js/back2top.js"></script>
+
+<script src="/zxk-blog.github.io/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/zxk-blog.github.io/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/zxk-blog.github.io/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/zxk-blog.github.io/js/left-side-toggle.js"></script>
+
+<script src="/zxk-blog.github.io/js/libs/anime.min.js"></script>
+
+<script src="/zxk-blog.github.io/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

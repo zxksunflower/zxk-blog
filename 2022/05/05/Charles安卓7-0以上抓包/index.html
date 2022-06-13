@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="张向恒">
+    
+    <title>
+        
+            Charles安卓7.0以上抓包 |
+        
+        数据开发技术日志
+    </title>
+    
+<link rel="stylesheet" href="/zxk-blog.github.io/css/style.css">
+
+    <link rel="shortcut icon" href="/zxk-blog.github.io/images/logo.svg">
+    
+<link rel="stylesheet" href="/zxk-blog.github.io/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zxksunflower.github.io","root":"/zxk-blog.github.io/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"小舟从此去，江海寄余生"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                数据开发技术日志
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Charles安卓7.0以上抓包</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">张向恒</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-05 17:22:46</span>
+        <span class="mobile">2022-05-05 17:22</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zxk-blog.github.io/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/">环境安装</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zxk-blog.github.io/tags/%E5%AE%89%E5%8D%93%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">安卓软件安装</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/zxk-blog.github.io/tags/%E6%8A%93%E5%8C%85/">抓包</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/zxk-blog.github.io/tags/Win%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">Win软件安装</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Windows安装Charles"><a href="#Windows安装Charles" class="headerlink" title="Windows安装Charles"></a>Windows安装Charles</h1><p>破解版安装包下载地址：<a class="link"   target="_blank" rel="noopener" href="https://fenxiangdayuan.lanzoux.com/ixZxghllc9a" >https://fenxiangdayuan.lanzoux.com/ixZxghllc9a<i class="fas fa-external-link-alt"></i></a></p>
+<p>1、下载破解安装包，解压，点击安装<br><img src="https://img-blog.csdnimg.cn/742fa7b911cc423d856531055ed075cf.png#pic_center" alt="在这里插入图片描述"><br>2、点击同意安装协议，选择自己的安装路径，点击下一步<br><img src="https://img-blog.csdnimg.cn/ff9b6bf406c241778648d6b13b195174.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述">安装<br><img src="https://img-blog.csdnimg.cn/7afd285b40e441feb71da9e61bfd5875.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<p>3、安装完成后，进入安装好的Charles文件里，进入lib文件，将原生charles.jar替换成破解包里的charles.jar<br><img src="https://img-blog.csdnimg.cn/bf42b93e38b64647a212ae3e8a56d5ba.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/04401e2191b34704b5be6525a8010211.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>4、可以正常打开， windows安装Charles完成。<br><img src="https://img-blog.csdnimg.cn/97ae4a3120824b779af3084d2495c214.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h1 id="Charles设置https抓包功能"><a href="#Charles设置https抓包功能" class="headerlink" title="Charles设置https抓包功能"></a>Charles设置https抓包功能</h1><p>1、点击 Proxy，SSL Proxying Settings<br><img src="https://img-blog.csdnimg.cn/f759acbb2d2d409baf8f5a42860b163f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_15,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>2、在弹出的弹框在，选中Enable SSL Proxying，添加端口号，Host和Port都填 * ，点击OK<br><img src="https://img-blog.csdnimg.cn/c3511940b29d4321af62b564f1242036.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>3、设置代理<br>点击 Proxy，Proxy settings<br><img src="https://img-blog.csdnimg.cn/86522840890c4e57ae89a52a3a2a8fb6.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_18,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述">端口号8888，勾选Enable transparent HTTP proxying，选择HTTP Proxy Mode，<br>点击OK<br><img src="https://img-blog.csdnimg.cn/d78404aa7742439c92656a08c7a5860b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h1 id="Windows用Charles抓包设置"><a href="#Windows用Charles抓包设置" class="headerlink" title="Windows用Charles抓包设置"></a>Windows用Charles抓包设置</h1><p>1、电脑安装SSL证书<br>点击Help，SSL Proxying，Install Charles Root Certificate Help 设置<br><img src="https://img-blog.csdnimg.cn/aba8e7fd07394795838e3bdabda08d57.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>电脑弹出证书，点击安装证书<br><img src="https://img-blog.csdnimg.cn/d568b9bf3a754efb82a2816e22532875.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>选择本地计算机， 点击下一步<br><img src="https://img-blog.csdnimg.cn/7e3c17879bd048ce839ff2d4799b1913.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>选择所有的证书都放入下列存储<br>选择受信任的根证书颁发机构<br>点击确定，点击下一页<br><img src="https://img-blog.csdnimg.cn/c8a7f92b936149b8a6ce6fa3d3a11d54.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>点击完成，证书导入成功<br><img src="https://img-blog.csdnimg.cn/562bfdd4e0af44da8ac2f634a5df2a89.png#pic_center" alt="在这里插入图片描述"></p>
+<p>2、浏览器安装ssl证书<br>点击Help，SSL Proxying，Install Charles Root Certificate on a Mobile Device or Remote Browser 设置<br><img src="https://img-blog.csdnimg.cn/b8c7f78e5dc64f30a179eb6d8708909f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>弹出如下提示框<br><img src="https://img-blog.csdnimg.cn/4686803b32e74976bde1727a2a259424.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>浏览器输入 chls.pro&#x2F;ssl 下载证书到本地<br><img src="https://img-blog.csdnimg.cn/bec8c1b53fda497a835201a729fde2cf.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>打开浏览器设置，证书管理，导入证书，以火狐浏览器为例子<br>搜索证书，点击查看证书<img src="https://img-blog.csdnimg.cn/252371a372834b93abdcec1ce93fda97.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>点击导入<br><img src="https://img-blog.csdnimg.cn/21db731b9e114be5b7e688c71666af35.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>导入刚才下载的ssl证书<br><img src="https://img-blog.csdnimg.cn/090a5d879c644606a98f241f4d36dea8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述">至此，电脑和浏览器证书安装完成</p>
+<hr>
+<h1 id="安卓7以上使用Charles抓包"><a href="#安卓7以上使用Charles抓包" class="headerlink" title="安卓7以上使用Charles抓包"></a>安卓7以上使用Charles抓包</h1><p>需要：一部root过的安卓手机<br>本文使用： piexl2 欧版 Android8.0系统</p>
+<p>安卓7以上，安卓系统默认不信任用户安装的外部证书，需要吧SSL证书安装到安卓系统证书目录里</p>
+<p>1、导出证书，证书改名<br><img src="https://img-blog.csdnimg.cn/c4ef951d2c4444af838ec8beb5aeef17.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述">弹出如下提示框<br><img src="https://img-blog.csdnimg.cn/73a5173da27a425fbcee647226a91cb3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述">浏览器输入 chls.pro&#x2F;ssl 下载证书到本地<br><img src="https://img-blog.csdnimg.cn/98812f22ac6b48a894d332e372b5131a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"><br>2、输出证书内容，查看证书将要改的名称<br>（这里Windows没有openssl的话，需要自行安装）<br>输入 openssl x509 -inform PEM -subject_hash_old -in xxx.pem<br>输出的第一行为修改后证书名称<br><img src="https://img-blog.csdnimg.cn/862f74e10f9545469731c37a695f7b52.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<p>3、修改证书名称为xxx.0<br><img src="https://img-blog.csdnimg.cn/489e10a8d5d84982b2283e3391cad8ec.png#pic_center" alt="在这里插入图片描述"></p>
+<p>4、将证书通过adb push传入安装手机 &#x2F;sdcard&#x2F; 文件下<br>adb push xxx.0 &#x2F;sdcard&#x2F;<br><img src="https://img-blog.csdnimg.cn/39003203920f4259b23c0b33be72eb67.png#pic_center" alt="在这里插入图片描述"></p>
+<p>5、adb 连接手机，su切换到root用户，cd到 &#x2F;sdcard&#x2F;<br>可以看到证书已经在里面了<br><img src="https://img-blog.csdnimg.cn/72ca33dce8ca45548133b6119cbac10b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<p>6、将证书移动到 &#x2F;system&#x2F;etc&#x2F;security&#x2F;cacerts&#x2F; 路径下，这个路径就是安卓的系统证书路径<br>如果遇到 Read-only file system 错误<br>执行命令：mount -o rw,remount &#x2F;system<br>如果失败<br>也可以执行命令：mount -o rw,remount &#x2F;<br><img src="https://img-blog.csdnimg.cn/fe249e2fdaf94204a8f00e8dddf78109.png#pic_center" alt="在这里插入图片描述"></p>
+<p>7、给证书权限<br>执行命令：chmod 777 &#x2F;system&#x2F;etc&#x2F;security&#x2F;cacerts&#x2F;xxx.0<br><img src="https://img-blog.csdnimg.cn/b4c0a32a743a4d06a6043e28bf8f1796.png#pic_center" alt="在这里插入图片描述"></p>
+<p>8、重启手机<br>执行命令：reboot<br>9、手机端口设置<br>手机和电脑连同一wifi网络<br>手机点击修改网络，代理设置手动，主机地址设置电脑ip地址，端口号设置8888，点击保存。<br><img src="https://img-blog.csdnimg.cn/c44bb418b1b3491388bc08689b2e1963.jpg?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byg5ZCR5oGS,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<p>至此，手机端抓包设置完成！可以开始抓包了！</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Charles安卓7.0以上抓包</li>
+        <li>本文作者：张向恒</li>
+        <li>创建时间：2022-05-05 17:22:46</li>
+        <li>
+            本文链接：https://zxksunflower.github.io/zxk-blog.github.io/2022/05/05/Charles安卓7-0以上抓包/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/zxk-blog.github.io/tags/%E5%AE%89%E5%8D%93%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">#安卓软件安装</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/zxk-blog.github.io/tags/%E6%8A%93%E5%8C%85/">#抓包</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/zxk-blog.github.io/tags/Win%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">#Win软件安装</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/zxk-blog.github.io/2022/06/13/Python%E6%8F%90%E5%8F%96%E4%B8%94%E8%A1%A5%E5%85%A8%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E7%9C%81%E5%B8%82%E5%8E%BF/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Python提取且补全出字符串中的省市县</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/zxk-blog.github.io/2022/01/21/aiohttp%E5%BA%93%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%B0%81%E8%A3%85/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">aiohttp库使用及封装</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">张向恒</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows%E5%AE%89%E8%A3%85Charles"><span class="nav-number">1.</span> <span class="nav-text">Windows安装Charles</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Charles%E8%AE%BE%E7%BD%AEhttps%E6%8A%93%E5%8C%85%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">Charles设置https抓包功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows%E7%94%A8Charles%E6%8A%93%E5%8C%85%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">Windows用Charles抓包设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E5%8D%937%E4%BB%A5%E4%B8%8A%E4%BD%BF%E7%94%A8Charles%E6%8A%93%E5%8C%85"><span class="nav-number">4.</span> <span class="nav-text">安卓7以上使用Charles抓包</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/zxk-blog.github.io/js/utils.js"></script>
+
+<script src="/zxk-blog.github.io/js/main.js"></script>
+
+<script src="/zxk-blog.github.io/js/header-shrink.js"></script>
+
+<script src="/zxk-blog.github.io/js/back2top.js"></script>
+
+<script src="/zxk-blog.github.io/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/zxk-blog.github.io/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/zxk-blog.github.io/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/zxk-blog.github.io/js/left-side-toggle.js"></script>
+
+<script src="/zxk-blog.github.io/js/libs/anime.min.js"></script>
+
+<script src="/zxk-blog.github.io/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="张向恒">
+    
+    <title>
+        
+            CentOS7安装Redis数据库 |
+        
+        数据开发技术日志
+    </title>
+    
+<link rel="stylesheet" href="/zxk-blog.github.io/css/style.css">
+
+    <link rel="shortcut icon" href="/zxk-blog.github.io/images/logo.svg">
+    
+<link rel="stylesheet" href="/zxk-blog.github.io/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zxksunflower.github.io","root":"/zxk-blog.github.io/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"小舟从此去，江海寄余生"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                数据开发技术日志
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/zxk-blog.github.io/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/zxk-blog.github.io/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">CentOS7安装Redis数据库</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://pic2.zhimg.com/80/v2-5edf44759e2a809d64a4af5801ae9af1_720w.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">张向恒</span>
+                        
+                            <span class="author-label">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-01-07 13:41:05</span>
+        <span class="mobile">2022-01-07 13:41</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zxk-blog.github.io/categories/%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/">环境安装</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/zxk-blog.github.io/tags/CentOS%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">CentOS软件安装</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h1><p>1、下载redis</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos downfiloadfile]# wget http://download.redis.io/releases/redis-6.2.5.tar.gz</span><br></pre></td></tr></table></figure>
+<p>2、解压</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos downfiloadfile]# tar xzvf redis-6.2.5.tar.gz</span><br></pre></td></tr></table></figure>
+<p>3、安装redis<br>cd 到redis安装包的解压目录下，安装redis</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos downfiloadfile]# cd redis-6.2.5/</span><br><span class="line">[root@VM-8-12-centos redis-6.2.5]# make</span><br><span class="line"># 需要等一点时间编译</span><br><span class="line">[root@VM-8-12-centos redis-6.2.5]# cd src/</span><br><span class="line">[root@VM-8-12-centos src]# make install PREFIX=/usr/local/redis</span><br></pre></td></tr></table></figure>
+<p>4、返回redis解压文件，将redis配置文件移动到安装目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos src]# cd ../</span><br><span class="line">[root@VM-8-12-centos redis-6.2.5]# cp redis.conf /usr/local/redis/bin</span><br></pre></td></tr></table></figure>
+<p>5、配置redis后台启动<br>编辑redis.conf配置文件，将daemonize no改成daemonize yes</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos redis-6.2.5]# vi /usr/local/redis/bin/redis.conf</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/273d9e3365fc4535a8cf2986849e45e3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMDE3NDY5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">6、将redis加入到开机启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos redis-6.2.5]# vi /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>往里面添加 (开机调用开启redis命令)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/redis/bin/redis-server /usr/local/redis/bin/redis.conf</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/f2b13f25bf364d4a86ced8cf63555d62.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMDE3NDY5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>7、启动redis</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos ~]# /usr/local/redis/bin/redis-server /usr/local/redis/bin/redis.conf </span><br></pre></td></tr></table></figure>
+<p>8、查看redis是否启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos ~]# ps -ef|grep redis</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/bb42167656c34cfea3b3409eedc22a2b.png" alt="在这里插入图片描述"><br>9、配置redis-cli软连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos bin]# ln -s /usr/local/redis/bin/redis-cli /usr/bin/redis</span><br></pre></td></tr></table></figure>
+<p>10、安装完成</p>
+<h1 id="配置远程连接"><a href="#配置远程连接" class="headerlink" title="配置远程连接"></a>配置远程连接</h1><p>1、编辑redis配置文件redis.conf<br>将bind 127.0.0.1改为bind 0.0.0.0 (支持所有连接访问)<br>将protected-mode yes 改为no （允许公网访问）<br><img src="https://img-blog.csdnimg.cn/0dec1c566a6a41828a818b32b155148d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMDE3NDY5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">2、redis添加登录密码（不改密码的话，可以忽略这一步）<br>将redis.conf配置文件里requirepass foobared取消注释，并且改为自定义密码<br><img src="https://img-blog.csdnimg.cn/82fb72a397194725b95c9cf4169dd151.png" alt="在这里插入图片描述"><br>3、重启redis</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 关闭redis</span><br><span class="line">[root@VM-8-12-centos ~]# pkill redis</span><br><span class="line"># 启动redis</span><br><span class="line">[root@VM-8-12-centos ~]# /usr/local/redis/bin/redis-server /usr/local/redis/bin/redis.conf</span><br></pre></td></tr></table></figure>
+<p>4、查看redis服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-8-12-centos ~]# ps -ef|grep redis</span><br></pre></td></tr></table></figure>
+<p>可以看到redis服务已经不是127.0.0.1而是我们设置的0.0.0.0 （这里我自己端口号改成了6397，同样在redis.conf里改，参数是port ****）<br><img src="https://img-blog.csdnimg.cn/074773ab11da40e4a73595dc05e819dc.png" alt="在这里插入图片描述">5、测试远程连接<br><img src="https://img-blog.csdnimg.cn/44a42030218d468f9ad687e4f2184900.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMDE3NDY5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<hr>
+<h1 id="卸载redis"><a href="#卸载redis" class="headerlink" title="卸载redis"></a>卸载redis</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 删除安装目录</span><br><span class="line">rm -rf /usr/local/redis</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：CentOS7安装Redis数据库</li>
+        <li>本文作者：张向恒</li>
+        <li>创建时间：2022-01-07 13:41:05</li>
+        <li>
+            本文链接：https://zxksunflower.github.io/zxk-blog.github.io/2022/01/07/CentOS7安装Redis数据库/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/zxk-blog.github.io/tags/CentOS%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">#CentOS软件安装</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/zxk-blog.github.io/2022/01/10/CentOS7%E5%AE%89%E8%A3%85MySQL5-7/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">CentOS7安装MySQL5.7</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/zxk-blog.github.io/2022/01/02/CentOS%E5%AE%89%E8%A3%85Python3/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">CentOS安装Python3</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">张向恒</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85redis"><span class="nav-number">1.</span> <span class="nav-text">安装redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.</span> <span class="nav-text">配置远程连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BDredis"><span class="nav-number">3.</span> <span class="nav-text">卸载redis</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/zxk-blog.github.io/js/utils.js"></script>
+
+<script src="/zxk-blog.github.io/js/main.js"></script>
+
+<script src="/zxk-blog.github.io/js/header-shrink.js"></script>
+
+<script src="/zxk-blog.github.io/js/back2top.js"></script>
+
+<script src="/zxk-blog.github.io/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/zxk-blog.github.io/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/zxk-blog.github.io/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/zxk-blog.github.io/js/left-side-toggle.js"></script>
+
+<script src="/zxk-blog.github.io/js/libs/anime.min.js"></script>
+
+<script src="/zxk-blog.github.io/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

@@ -235,9 +235,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content = <span class="string">&#x27;北京海淀魏公村到山西襄垣&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>解析地址后结果是：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start_address = <span class="string">&#x27;北京市海淀区魏公村&#x27;</span></span><br><span class="line">end_address = <span class="string">&#x27;山西省长治市襄垣县&#x27;</span></span><br></pre></td></tr></table></figure>
-
-
-<p>难点：本来以为是一个很简单的需求，但是实际作的过程中发现有一些坑。<br>总结出需要解决的问题：<br>1、用户出入地址文本并不是以结构的地址输入的，几乎所有的用户都只会写地址的简称，例如 海淀区-海淀、呼和浩特-呼市等，所以通过全称是匹配不出来字符串中的地址的，需要通过简称匹配，然后再对应上全称。<br>2、地址越细分，就会有重复的地名，如：河南省开封市鼓楼区-江苏省徐州市鼓楼区。所有需要将所有重复地名的地方都列出来，防止地址错误<br>3、地址简称被另一个简称覆盖情况, 用户发的地址是 乌兰浩特，但青海省海西蒙古族藏族自治州乌兰县的县简称是乌兰，根据字符匹配就容易用乌兰将乌兰浩特关联起来。所以也需要将涉及简称覆盖的简称也都列出来</p>
+<p>开发过程中总结出来需要解决的问题：<br>1、用户出入地址文本并不是以结构的地址输入的，几乎所有的用户都只会写地址的简称，例如 海淀区-海淀、呼和浩特-呼市等，所以通过全称是匹配不出来字符串中的地址的，需要通过简称匹配，然后再对应上全称。<br>2、地址越细分，就会有重复的地名，如：河南省开封市鼓楼区-江苏省徐州市鼓楼区。所有需要将所有重复地名的地方都列出来，防止地址错误<br>3、地址简称被另一个简称覆盖情况, 用户发的地址是 乌兰浩特，但青海省海西蒙古族藏族自治州乌兰县的县简称是乌兰，根据字符匹配就容易用乌兰将乌兰浩特关联起来。所以也需要将涉及简称覆盖的简称也都列出来</p>
 
         </div>
 
